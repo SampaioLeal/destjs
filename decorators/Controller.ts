@@ -1,8 +1,8 @@
 import { endpointsStore } from "../stores/endpoints.ts";
 
-function Controller(endpoint: string) {
-  return (TargetController: unknown) => {
-    endpointsStore.registerController(endpoint, TargetController);
+function Controller(endpoint: string): ClassDecorator {
+  return (controller) => {
+    endpointsStore.registerController(endpoint, controller);
   };
 }
 

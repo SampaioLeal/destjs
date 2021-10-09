@@ -1,14 +1,19 @@
 import { Router } from "../deps.ts";
 import { handleRoute } from "../route.ts";
 import { endpointsStore } from "../stores/endpoints.ts";
-import { HandledRoute } from "../types.ts";
+import { Callback, HandledRoute } from "../types.ts";
+
+type ControllerClass = new () => Record<string, Callback>;
 
 export function configureRouter() {
   const router = new Router();
 
   for (const endpoint of endpointsStore.list.values()) {
-    const controller = endpointsStore.controllers[endpoint.controller];
-    let path = `${controller.path}${endpoint.path}`;
+    let path =
+      endpointsStore.controllers[endpoint.controller].path + endpoint.path;
+    const controllerClass = endpointsStore.controllers[endpoint.controller]
+      .target as ControllerClass;
+    const controller = new controllerClass();
 
     if (path[path.length - 1] === "/") {
       path = path.substring(0, path.length - 1);
@@ -16,7 +21,7 @@ export function configureRouter() {
 
     const params: [string, HandledRoute] = [
       path,
-      handleRoute(controller.target[endpoint.propertyKey]),
+      handleRoute(controller[endpoint.propertyKey]),
     ];
 
     switch (endpoint.method) {

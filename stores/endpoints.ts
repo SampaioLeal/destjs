@@ -1,9 +1,5 @@
-type HTTPMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-
-interface ControllerData {
-  path: string;
-  target: any;
-}
+// deno-lint-ignore-file ban-types
+import { ControllerData, HTTPMethod } from "../types.ts";
 
 interface EndpointData {
   path: string;
@@ -31,10 +27,10 @@ class EndpointsStore {
     });
   }
 
-  registerController(path: string, Controller: any) {
+  registerController<T extends Function>(path: string, Controller: T) {
     this.controllers[Controller.name] = {
       path,
-      target: new Controller(),
+      target: Controller,
     };
   }
 }

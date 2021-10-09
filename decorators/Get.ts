@@ -1,15 +1,11 @@
 import { endpointsStore } from "../stores/endpoints.ts";
 
-function Get(endpoint: string) {
-  return (
-    target: any,
-    propertyKey: string,
-    _descriptor: PropertyDescriptor
-  ) => {
+function Get(endpoint: string): MethodDecorator {
+  return (target, propertyKey, _descriptor) => {
     endpointsStore.registerEndpoint(
       endpoint,
       "GET",
-      propertyKey,
+      propertyKey as string,
       target.constructor.name
     );
   };

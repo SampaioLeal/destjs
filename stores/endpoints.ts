@@ -1,21 +1,25 @@
-// deno-lint-ignore-file ban-types
-import { ControllerData, HTTPMethod, Interceptor } from "../types.ts";
+import {
+  ControllerClass,
+  ControllerData,
+  HttpMethod,
+  Interceptor,
+} from "../types.ts";
 
 interface EndpointData {
   path: string;
-  method: HTTPMethod;
+  method: HttpMethod;
   propertyKey: string;
   controller: string;
   interceptors: Interceptor[];
 }
 
 class EndpointsStore {
-  controllers: Record<string, ControllerData> = {};
+  controllers: Map<string, ControllerData> = new Map();
   list: Map<string, EndpointData> = new Map();
 
   registerEndpoint(
     path: string,
-    method: HTTPMethod,
+    method: HttpMethod,
     propertyKey: string,
     controller: string
   ) {
@@ -30,11 +34,11 @@ class EndpointsStore {
     });
   }
 
-  registerController<T extends Function>(path: string, Controller: T) {
-    this.controllers[Controller.name] = {
+  registerController(path: string, Controller: ControllerClass) {
+    this.controllers.set(Controller.name, {
       path,
-      target: Controller,
-    };
+      target: new Controller(),
+    });
   }
 
   registerInterceptor(
@@ -47,7 +51,7 @@ class EndpointsStore {
 
     if (!endpoint)
       throw new Error(
-        `Interceptor must be above HTTP method decorators!\nThe controller ${controller} has a misplaced interceptor at method ${propertyKey}.`
+        `Interceptor must be above Http method decorators!\nThe controller ${controller} has a misplaced interceptor at method ${propertyKey}.`
       );
 
     endpoint.interceptors.push(interceptor);

@@ -1,9 +1,5 @@
-import { HTTPContext, NextFunction } from "../../types.ts";
+import { HttpContext } from "destjs/types.ts";
 
-export async function DateInterceptor(
-  context: HTTPContext,
-  next: NextFunction
-) {
+export function DateInterceptor(context: HttpContext) {
   context.state.nowInterceptor = Date.now();
-  await next();
 }

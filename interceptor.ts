@@ -1,10 +1,10 @@
-import { Callback, HttpContext } from "./types.ts";
+import { HttpContext, Interceptor, NextFunction } from "./types.ts";
 
-export function handleRoute(callback: Callback) {
-  return async (context: HttpContext) => {
+export function handleInterceptor(interceptor: Interceptor) {
+  return async (context: HttpContext, next: NextFunction) => {
     try {
-      const response = await callback(context);
-      context.response.body = response;
+      await interceptor(context);
+      await next();
     } catch (error) {
       const status = error.status || 500;
       const message = error.message || "Internal server error!";

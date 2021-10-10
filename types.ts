@@ -1,4 +1,3 @@
-// deno-lint-ignore-file ban-types
 import { Context, Body } from "./deps.ts";
 
 type BodyFunction = () => Body | Promise<Body>;
@@ -9,25 +8,24 @@ export type Callback = (
 
 export type HandledRoute = (context: Context) => Promise<void> | void;
 
-export type HTTPContext = Context;
+export type HttpContext = Context;
 export interface ControllerConstructor extends Function {
   new (...args: unknown[]): unknown;
 }
 
 export interface ControllerData {
   path: string;
-  target: Function;
+  target: unknown;
 }
 
-export type HTTPMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 export type NextFunction = () => Promise<unknown>;
 
 export interface DestMiddleware {
-  use(context: HTTPContext, next: NextFunction): Promise<void>;
+  use(context: HttpContext, next: NextFunction): Promise<void>;
 }
 
-export type Interceptor = (
-  context: HTTPContext,
-  next: NextFunction
-) => Promise<void>;
+export type Interceptor = (context: HttpContext) => Promise<void> | void;
+
+export type ControllerClass = new () => unknown;

@@ -1,4 +1,5 @@
 import { Application, composeMiddleware, Router } from "../deps.ts";
+import { handleInterceptor } from "../interceptor.ts";
 import { handleRoute } from "../route.ts";
 import { endpointsStore } from "../stores/endpoints.ts";
 import { Callback } from "../types.ts";
@@ -17,18 +18,18 @@ export function configureRouter(app: Application) {
   ]);
 
   for (const endpoint of endpointsStore.list.values()) {
-    let path =
-      endpointsStore.controllers[endpoint.controller].path + endpoint.path;
-    const controllerClass = endpointsStore.controllers[endpoint.controller]
-      .target as ControllerClass;
-    const controller = new controllerClass();
+    const controller = endpointsStore.controllers.get(endpoint.controller);
 
+    if (!controller)
+      throw new Error(
+        `Method ${endpoint.propertyKey} does not have a registered controller.`
+      );
+
+    let path = controller.path + endpoint.path;
     if (path[path.length - 1] === "/") {
       path = path.substring(0, path.length - 1);
     }
 
-    const endpointFn = handleRoute(controller[endpoint.propertyKey]);
-    const middlewares = composeMiddleware(endpoint.interceptors);
     const routerFn = methodsMap.get(endpoint.method);
 
     if (!routerFn)
@@ -36,7 +37,14 @@ export function configureRouter(app: Application) {
         `The method ${endpoint.method} can not be handled by Dest.`
       );
 
-    routerFn.call(router, path, middlewares, endpointFn);
+    routerFn.call(
+      router,
+      path,
+      composeMiddleware(endpoint.interceptors.map(handleInterceptor)),
+      handleRoute(
+        (controller.target as Record<string, Callback>)[endpoint.propertyKey]
+      )
+    );
   }
 
   app.use(router.routes());

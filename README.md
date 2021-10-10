@@ -40,8 +40,8 @@ Take alook at what DestJS will do:
 
 ## Creating your first Controller
 
-By default DestJS will look at `*.controller.ts` files and initialize them in order to decorators works as expected.
-So, let's create a CatsController:
+By default DestJS will look at `*.controller.ts` files at controllers folder and initialize them in order to decorators works as expected.
+So, let's create a `CatsController`:
 
 ```ts
 // controllers/cats.controller.ts
@@ -66,3 +66,40 @@ Now we can start our API and test the endpoint `/cats` by running the following 
 ```
 deno run --allow-net --allow-read ./main.ts
 ```
+
+## Creating your first Middleware
+
+By default DestJS will look at `*.middleware.ts` files at middlewares folder and initialize them in order to decorators works as expected.
+
+Have in mind that middlewares will intercept every request and can manipulate the context and throw errors that will be catched by module middleware handler, returning an Internal Server Error to the client or a custom error using `HttpError class.
+
+So, let's create a DateMiddleware that will inject the actual Date in request state:
+
+```ts
+// middlewares/date.middleware.ts
+import {
+  Middleware,
+  DestMiddleware,
+  HttpContext,
+  NextFunction,
+} from "../deps.ts";
+
+@Middleware()
+export class DateMiddleware implements DestMiddleware {
+  async use(context: HttpContext, next: NextFunction) {
+    context.state.nowMiddleware = Date.now();
+    await next();
+  }
+}
+```
+```ts
+// deps.ts
+export { createApp, Controller, Get, Middleware } from "https://deno.land/x/destjs@v0.1.2/mod.ts";
+export type {
+  DestMiddleware,
+  HttpContext,
+  NextFunction,
+} from "https://deno.land/x/destjs@v0.1.2/types.ts";
+```
+
+Now we can start our API and test the endpoint `/cats`. Looking at the terminal we can see the state with a `nowMiddleware` key with the actual time.

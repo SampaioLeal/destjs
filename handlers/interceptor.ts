@@ -1,4 +1,4 @@
-import { HttpContext, Interceptor, NextFunction } from "./types.ts";
+import { HttpContext, Interceptor, NextFunction } from "../types.ts";
 
 export function handleInterceptor(interceptor: Interceptor) {
   return async (context: HttpContext, next: NextFunction) => {

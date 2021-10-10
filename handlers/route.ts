@@ -1,4 +1,4 @@
-import { Callback, HttpContext } from "./types.ts";
+import { Callback, HttpContext } from "../types.ts";
 
 export function handleRoute(callback: Callback) {
   return async (context: HttpContext) => {

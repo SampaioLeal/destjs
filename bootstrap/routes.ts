@@ -1,10 +1,8 @@
 import { Application, composeMiddleware, Router } from "../deps.ts";
-import { handleInterceptor } from "../interceptor.ts";
-import { handleRoute } from "../route.ts";
+import { handleInterceptor } from "../handlers/interceptor.ts";
+import { handleRoute } from "../handlers/route.ts";
 import { endpointsStore } from "../stores/endpoints.ts";
 import { Callback } from "../types.ts";
-
-type ControllerClass = new () => Record<string, Callback>;
 
 export function configureRouter(app: Application) {
   const start = Date.now();

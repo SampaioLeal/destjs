@@ -6,6 +6,13 @@ import {
 import { configureRouter } from "./bootstrap/routes.ts";
 import { Application } from "./deps.ts";
 
+export { Controller } from "./decorators/Controller.ts";
+export { Middleware } from "./decorators/Middleware.ts";
+export { Get, Post, Put, Patch, Delete } from "./decorators/Methods.ts";
+export { UseInterceptor } from "./decorators/UseInterceptor.ts";
+
+export { HttpError } from "./errors.ts";
+
 interface CreateAppOptions {
   port: number;
 }

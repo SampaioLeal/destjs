@@ -5,7 +5,6 @@ import {
 } from "./bootstrap/middlewares.ts";
 import { configureRouter } from "./bootstrap/routes.ts";
 import { Application } from "./deps.ts";
-import { initializeServer } from "./server.ts";
 
 interface CreateAppOptions {
   port: number;
@@ -20,5 +19,6 @@ export async function createApp(options: CreateAppOptions) {
   configureMiddlewares(app);
   configureRouter(app);
 
-  await initializeServer(app, options.port);
+  await app.listen({ port: options.port });
+  console.log(`> DestJS application ready at port ${options.port}`);
 }

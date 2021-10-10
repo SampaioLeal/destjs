@@ -1,5 +1,5 @@
 # destjs
-Make beautiful APIs with Deno
+Make beautiful APIs with the NestJS inspired framework for Deno
 
 ### Goals
 

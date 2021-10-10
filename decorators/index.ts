@@ -1,4 +1,5 @@
 import Controller from "./Controller.ts";
 import Get from "./Get.ts";
+import Middleware from "./Middleware.ts";
 
-export { Controller, Get };
+export { Middleware, Controller, Get };

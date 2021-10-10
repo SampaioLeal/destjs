@@ -1,11 +1,12 @@
-import { Router } from "../deps.ts";
+import { Application, Router } from "../deps.ts";
 import { handleRoute } from "../route.ts";
 import { endpointsStore } from "../stores/endpoints.ts";
 import { Callback, HandledRoute } from "../types.ts";
 
 type ControllerClass = new () => Record<string, Callback>;
 
-export function configureRouter() {
+export function configureRouter(app: Application) {
+  const start = Date.now();
   const router = new Router();
 
   for (const endpoint of endpointsStore.list.values()) {
@@ -26,20 +27,31 @@ export function configureRouter() {
 
     switch (endpoint.method) {
       case "DELETE":
-        return router.delete(params[0], params[1]);
+        router.delete(params[0], params[1]);
+        break;
+
       case "GET":
-        return router.get(params[0], params[1]);
+        router.get(params[0], params[1]);
+        break;
+
       case "PATCH":
-        return router.patch(params[0], params[1]);
+        router.patch(params[0], params[1]);
+        break;
+
       case "POST":
-        return router.post(params[0], params[1]);
+        router.post(params[0], params[1]);
+        break;
+
       case "PUT":
-        return router.put(params[0], params[1]);
+        router.put(params[0], params[1]);
+        break;
 
       default:
         break;
     }
   }
 
-  return router;
+  app.use(router.routes());
+  app.use(router.allowedMethods());
+  console.log("> Routes configured!", `${Date.now() - start}ms`);
 }

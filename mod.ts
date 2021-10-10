@@ -1,5 +1,10 @@
 import { initializeControllers } from "./bootstrap/controllers.ts";
-import { configureRouter } from "./bootstrap/router.ts";
+import {
+  configureMiddlewares,
+  initializeMiddlewares,
+} from "./bootstrap/middlewares.ts";
+import { configureRouter } from "./bootstrap/routes.ts";
+import { Application } from "./deps.ts";
 import { initializeServer } from "./server.ts";
 
 interface CreateAppOptions {
@@ -7,7 +12,13 @@ interface CreateAppOptions {
 }
 
 export async function createApp(options: CreateAppOptions) {
+  const app = new Application();
+
   await initializeControllers();
-  const router = configureRouter();
-  await initializeServer(router, options.port);
+  await initializeMiddlewares();
+
+  configureMiddlewares(app);
+  configureRouter(app);
+
+  await initializeServer(app, options.port);
 }

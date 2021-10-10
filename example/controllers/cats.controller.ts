@@ -1,11 +1,11 @@
 import { Controller, Get } from "destjs/decorators/index.ts";
+import { HTTPContext } from "../../types.ts";
 
 @Controller("/cats")
-class CatsController {
+export class CatsController {
   @Get("/")
-  getOne() {
-    return { name: "Michael Scott", cute: true, crazy: true };
+  getOne(context: HTTPContext) {
+    const now = context.state.now;
+    return { name: "Michael Scott", cute: true, crazy: true, now };
   }
 }
-
-export default CatsController;

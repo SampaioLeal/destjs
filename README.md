@@ -1,7 +1,7 @@
 # destjs
 Make beautiful APIs with the NestJS inspired framework for Deno
 
-### Goals
+## Goals
 
 - [x] Controllers store and routes creation with Decorators
   - [x] Other methods decorators (PUT, DELETE, POST, PATCH)
@@ -10,7 +10,7 @@ Make beautiful APIs with the NestJS inspired framework for Deno
 - [ ] Input validation
 - [ ] Serialization
 
-### Example Project
+## Example Project
 
 To get started with DestJS you have to instatiate the app with the `createApp` function and build a minimal structure to the framework works properly.
 At the root of your project you need to create two folders: `controllers` and `middlewares`
@@ -38,7 +38,7 @@ Take alook at what DestJS will do:
 - Configure stored controllers to oak Router with interceptors
 - Start oak server at specified port
 
-### Creating your first Controller
+## Creating your first Controller
 
 By default DestJS will look at `*.controller.ts` files and initialize them in order to decorators works as expected.
 So, let's create a CatsController:

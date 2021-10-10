@@ -1,5 +1,5 @@
 import Controller from "./Controller.ts";
-import Get from "./Get.ts";
+import { Delete, Get, Patch, Post, Put } from "./Methods.ts";
 import Middleware from "./Middleware.ts";
 
-export { Middleware, Controller, Get };
+export { Middleware, Controller, Get, Post, Put, Patch, Delete };

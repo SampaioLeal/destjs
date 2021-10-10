@@ -4,7 +4,7 @@ import { Middleware } from "destjs/decorators/index.ts";
 @Middleware()
 export class DateMiddleware implements DestMiddleware {
   async use(context: HTTPContext, next: NextFunction) {
-    context.state.now = Date.now();
+    context.state.nowMiddleware = Date.now();
     await next();
   }
 }

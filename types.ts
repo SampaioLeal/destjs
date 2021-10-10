@@ -26,3 +26,8 @@ export type NextFunction = () => Promise<unknown>;
 export interface DestMiddleware {
   use(context: HTTPContext, next: NextFunction): Promise<void>;
 }
+
+export type Interceptor = (
+  context: HTTPContext,
+  next: NextFunction
+) => Promise<void>;

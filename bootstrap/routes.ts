@@ -1,13 +1,20 @@
-import { Application, Router } from "../deps.ts";
+import { Application, composeMiddleware, Router } from "../deps.ts";
 import { handleRoute } from "../route.ts";
 import { endpointsStore } from "../stores/endpoints.ts";
-import { Callback, HandledRoute } from "../types.ts";
+import { Callback } from "../types.ts";
 
 type ControllerClass = new () => Record<string, Callback>;
 
 export function configureRouter(app: Application) {
   const start = Date.now();
   const router = new Router();
+  const methodsMap = new Map([
+    ["DELETE", router.delete],
+    ["GET", router.get],
+    ["PATCH", router.patch],
+    ["POST", router.post],
+    ["PUT", router.put],
+  ]);
 
   for (const endpoint of endpointsStore.list.values()) {
     let path =
@@ -20,35 +27,16 @@ export function configureRouter(app: Application) {
       path = path.substring(0, path.length - 1);
     }
 
-    const params: [string, HandledRoute] = [
-      path,
-      handleRoute(controller[endpoint.propertyKey]),
-    ];
+    const endpointFn = handleRoute(controller[endpoint.propertyKey]);
+    const middlewares = composeMiddleware(endpoint.interceptors);
+    const routerFn = methodsMap.get(endpoint.method);
 
-    switch (endpoint.method) {
-      case "DELETE":
-        router.delete(params[0], params[1]);
-        break;
+    if (!routerFn)
+      throw new Error(
+        `The method ${endpoint.method} can not be handled by Dest.`
+      );
 
-      case "GET":
-        router.get(params[0], params[1]);
-        break;
-
-      case "PATCH":
-        router.patch(params[0], params[1]);
-        break;
-
-      case "POST":
-        router.post(params[0], params[1]);
-        break;
-
-      case "PUT":
-        router.put(params[0], params[1]);
-        break;
-
-      default:
-        break;
-    }
+    routerFn(path, middlewares, endpointFn);
   }
 
   app.use(router.routes());

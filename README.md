@@ -1,5 +1,11 @@
-# destjs
-Make beautiful APIs with the NestJS inspired framework for Deno
+<h1 align="center">DestJS</h1>
+<p align="center">Make beautiful APIs with the NestJS inspired framework for Deno</p>
+
+<p align="center">
+    <a href="https://www.codefactor.io/repository/github/sampaioleal/destjs"><img src="https://www.codefactor.io/repository/github/sampaioleal/destjs/badge" alt="CodeFactor" /></a>
+    <img src="https://shields.io/github/v/tag/SampaioLeal/destjs" />
+    <a href="https://deno.land/x/destjs"><img alt="deno.land/x" src="http://img.shields.io/badge/available%20on-deno.land/x-lightgrey.svg?logo=deno&labelColor=black" /></a>
+</p>
 
 ## Goals
 

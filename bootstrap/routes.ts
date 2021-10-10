@@ -36,7 +36,7 @@ export function configureRouter(app: Application) {
         `The method ${endpoint.method} can not be handled by Dest.`
       );
 
-    routerFn(path, middlewares, endpointFn);
+    routerFn.call(router, path, middlewares, endpointFn);
   }
 
   app.use(router.routes());

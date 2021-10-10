@@ -86,9 +86,8 @@ import {
 
 @Middleware()
 export class DateMiddleware implements DestMiddleware {
-  async use(context: HttpContext, next: NextFunction) {
+  use(context: HttpContext) {
     context.state.nowMiddleware = Date.now();
-    await next();
   }
 }
 ```

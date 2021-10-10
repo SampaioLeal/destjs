@@ -44,7 +44,21 @@ export function configureMiddlewares(app: Application) {
 
   for (const middleware of middlewaresStore.list.values()) {
     const midClass = middleware as MiddlewareClass;
-    app.use(new midClass().use);
+    app.use(async (context, next) => {
+      try {
+        await new midClass().use(context);
+        await next();
+      } catch (error) {
+        const status = error.status || 500;
+        const message = error.message || "Internal server error!";
+
+        context.response.body = {
+          status,
+          message,
+        };
+        context.response.status = status;
+      }
+    });
   }
 
   console.log("> Middlewares configured!", `${Date.now() - start}ms`);

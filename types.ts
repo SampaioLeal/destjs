@@ -23,7 +23,7 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 export type NextFunction = () => Promise<unknown>;
 
 export interface DestMiddleware {
-  use(context: HttpContext, next: NextFunction): Promise<void>;
+  use(context: HttpContext): Promise<void> | void;
 }
 
 export type Interceptor = (context: HttpContext) => Promise<void> | void;

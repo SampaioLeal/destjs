@@ -1,16 +1,10 @@
-import {
-  ControllerClass,
-  ControllerData,
-  HttpMethod,
-  Interceptor,
-} from "../types.ts";
+import { ControllerClass, ControllerData, HttpMethod } from "../types.ts";
 
 interface EndpointData {
   path: string;
   method: HttpMethod;
   propertyKey: string;
   controller: string;
-  interceptors: Interceptor[];
 }
 
 class EndpointsStore {
@@ -30,7 +24,6 @@ class EndpointsStore {
       method,
       path,
       propertyKey,
-      interceptors: [],
     });
   }
 
@@ -39,22 +32,6 @@ class EndpointsStore {
       path,
       target: new Controller(),
     });
-  }
-
-  registerInterceptor(
-    controller: string,
-    propertyKey: string,
-    interceptor: Interceptor
-  ) {
-    const key = `${controller}.${propertyKey}`;
-    const endpoint = this.list.get(key);
-
-    if (!endpoint)
-      throw new Error(
-        `Interceptor must be above Http method decorators!\nThe controller ${controller} has a misplaced interceptor at method ${propertyKey}.`
-      );
-
-    endpoint.interceptors.push(interceptor);
   }
 }
 

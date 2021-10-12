@@ -26,6 +26,6 @@ export async function createApp(options: CreateAppOptions) {
   configureMiddlewares(app);
   configureRouter(app);
 
-  await app.listen({ port: options.port });
   console.log(`> DestJS application ready at port ${options.port}`);
+  await app.listen({ port: options.port });
 }

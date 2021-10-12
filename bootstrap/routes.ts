@@ -1,5 +1,4 @@
-import { Application, composeMiddleware, Router } from "../deps.ts";
-import { handleInterceptor } from "../handlers/interceptor.ts";
+import { Application, Router } from "../deps.ts";
 import { handleRoute } from "../handlers/route.ts";
 import { endpointsStore } from "../stores/endpoints.ts";
 import { Callback } from "../types.ts";
@@ -38,7 +37,6 @@ export function configureRouter(app: Application) {
     routerFn.call(
       router,
       path,
-      composeMiddleware(endpoint.interceptors.map(handleInterceptor)),
       handleRoute(
         (controller.target as Record<string, Callback>)[endpoint.propertyKey]
       )

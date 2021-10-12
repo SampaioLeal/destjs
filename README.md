@@ -9,12 +9,14 @@
 
 ## Goals
 
-- [x] Controllers store and routes creation with Decorators
-  - [x] Other methods decorators (PUT, DELETE, POST, PATCH)
-- [x] Global Middlewares folder and management
-- [x] Interceptors for methods
-- [ ] Input validation
-- [ ] Serialization
+| Goal | State |
+| --- | ----------- |
+| Controllers store and routes creation with Decorators | Complete ✔ |
+|  Other methods decorators (PUT, DELETE, POST, PATCH) | Complete ✔ |
+| Global Middlewares folder and management | Complete ✔ |
+| Interceptors for methods | Complete ✔ |
+| Input validation | In Progress ⛔ |
+| Serialization | In Progress ⛔ |
 
 ## Example Project
 

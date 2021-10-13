@@ -1,6 +1,6 @@
 <h1 align="center">DestJS</h1>
 <p align="center">Make beautiful APIs with the NestJS inspired framework for Deno</p>
-<img align="center" src="./dest.png" />
+<img align="center" height="150px" width="150px" src="./dest.png" />
 
 <p align="center">
     <a href="https://www.codefactor.io/repository/github/sampaioleal/destjs"><img src="https://www.codefactor.io/repository/github/sampaioleal/destjs/badge" alt="CodeFactor" /></a>

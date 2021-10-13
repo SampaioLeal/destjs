@@ -1,8 +1,8 @@
 import { Reflect } from "../deps.ts";
 import { HttpMethod } from "../types.ts";
 
-function createMappingDecorator(method: string) {
-  return (endpoint: HttpMethod): MethodDecorator => {
+function createMappingDecorator(method: HttpMethod) {
+  return (endpoint: string): MethodDecorator => {
     return (_target, _propertyKey, descriptor) => {
       Reflect.defineMetadata("endpoint", endpoint, descriptor.value);
       Reflect.defineMetadata("method", method, descriptor.value);

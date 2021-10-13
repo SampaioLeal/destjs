@@ -1,5 +1,5 @@
 <h1 align="center">DestJS</h1>
-<img align="center" margin="auto" height="150px" width="150px" src="./dest.png" />
+<img justify="center" height="150px" width="150px" src="./dest.png" />
 
 
 <p align="center">Make beautiful APIs with the NestJS inspired framework for Deno</p>

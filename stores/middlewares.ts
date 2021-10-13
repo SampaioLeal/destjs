@@ -1,5 +1,4 @@
 // deno-lint-ignore-file ban-types
-// TODO: use Controller types
 class MiddlewaresStore {
   list: Map<string, Function> = new Map();
 

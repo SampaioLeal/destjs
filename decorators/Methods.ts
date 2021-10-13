@@ -1,56 +1,18 @@
-import { endpointsStore } from "../stores/endpoints.ts";
+import { Reflect } from "../deps.ts";
+import { HttpMethod } from "../types.ts";
 
-export function Get(endpoint: string): MethodDecorator {
-  return (target, propertyKey, _descriptor) => {
-    endpointsStore.registerEndpoint(
-      endpoint,
-      "GET",
-      propertyKey as string,
-      target.constructor.name
-    );
+function createMappingDecorator(method: string) {
+  return (endpoint: HttpMethod): MethodDecorator => {
+    return (_target, _propertyKey, descriptor) => {
+      Reflect.defineMetadata("endpoint", endpoint, descriptor.value);
+      Reflect.defineMetadata("method", method, descriptor.value);
+      return descriptor;
+    };
   };
 }
 
-export function Post(endpoint: string): MethodDecorator {
-  return (target, propertyKey, _descriptor) => {
-    endpointsStore.registerEndpoint(
-      endpoint,
-      "POST",
-      propertyKey as string,
-      target.constructor.name
-    );
-  };
-}
-
-export function Put(endpoint: string): MethodDecorator {
-  return (target, propertyKey, _descriptor) => {
-    endpointsStore.registerEndpoint(
-      endpoint,
-      "PUT",
-      propertyKey as string,
-      target.constructor.name
-    );
-  };
-}
-
-export function Patch(endpoint: string): MethodDecorator {
-  return (target, propertyKey, _descriptor) => {
-    endpointsStore.registerEndpoint(
-      endpoint,
-      "PATCH",
-      propertyKey as string,
-      target.constructor.name
-    );
-  };
-}
-
-export function Delete(endpoint: string): MethodDecorator {
-  return (target, propertyKey, _descriptor) => {
-    endpointsStore.registerEndpoint(
-      endpoint,
-      "DELETE",
-      propertyKey as string,
-      target.constructor.name
-    );
-  };
-}
+export const Get = createMappingDecorator("GET");
+export const Post = createMappingDecorator("POST");
+export const Put = createMappingDecorator("PUT");
+export const Patch = createMappingDecorator("PATCH");
+export const Delete = createMappingDecorator("DELETE");

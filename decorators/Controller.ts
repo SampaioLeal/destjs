@@ -1,8 +1,8 @@
-import { endpointsStore } from "../stores/endpoints.ts";
 import { ControllerClass } from "../types.ts";
+import { Reflect } from "../deps.ts";
 
 export function Controller(endpoint: string) {
   return (controller: ControllerClass) => {
-    endpointsStore.registerController(endpoint, controller);
+    Reflect.defineMetadata("endpoint", endpoint, controller);
   };
 }

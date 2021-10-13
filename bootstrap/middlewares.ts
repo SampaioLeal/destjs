@@ -2,7 +2,10 @@ import { Application } from "../deps.ts";
 import { middlewaresStore } from "../stores/middlewares.ts";
 import { DestMiddleware } from "../types.ts";
 
-export async function initializeMiddlewares() {
+const TimeHeader = "X-Response-Time";
+type MiddlewareClass = new () => DestMiddleware;
+
+export async function initializeMiddlewares(app: Application) {
   const start = Date.now();
   const cwd = Deno.cwd();
 
@@ -19,27 +22,16 @@ export async function initializeMiddlewares() {
   }
 
   await readFolder("middlewares");
+
+  registerMiddlewares(app);
+
   console.log("> Middlewares initialized!", `${Date.now() - start}ms`);
 }
 
-type MiddlewareClass = new () => DestMiddleware;
-
-export function configureMiddlewares(app: Application) {
-  const start = Date.now();
-
-  // Logger
-  app.use(async (ctx, next) => {
+function registerMiddlewares(app: Application) {
+  app.use(async (context, next) => {
+    context.state[TimeHeader] = Date.now();
     await next();
-    const rt = ctx.response.headers.get("X-Response-Time");
-    console.log(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
-  });
-
-  // Timing
-  app.use(async (ctx, next) => {
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    ctx.response.headers.set("X-Response-Time", `${ms}ms`);
   });
 
   for (const middleware of middlewaresStore.list.values()) {
@@ -61,5 +53,11 @@ export function configureMiddlewares(app: Application) {
     });
   }
 
-  console.log("> Middlewares configured!", `${Date.now() - start}ms`);
+  app.use(async (context, next) => {
+    await next();
+    context.response.headers.set(
+      TimeHeader,
+      `${Date.now() - context.state[TimeHeader]}ms`
+    );
+  });
 }

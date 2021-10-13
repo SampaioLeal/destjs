@@ -1,9 +1,5 @@
 import { initializeControllers } from "./bootstrap/controllers.ts";
-import {
-  configureMiddlewares,
-  initializeMiddlewares,
-} from "./bootstrap/middlewares.ts";
-import { configureRouter } from "./bootstrap/routes.ts";
+import { initializeMiddlewares } from "./bootstrap/middlewares.ts";
 import { Application } from "./deps.ts";
 
 export { Controller } from "./decorators/Controller.ts";
@@ -20,11 +16,8 @@ interface CreateAppOptions {
 export async function createApp(options: CreateAppOptions) {
   const app = new Application();
 
-  await initializeControllers();
-  await initializeMiddlewares();
-
-  configureMiddlewares(app);
-  configureRouter(app);
+  await initializeMiddlewares(app);
+  await initializeControllers(app);
 
   console.log(`> DestJS application ready at port ${options.port}`);
   await app.listen({ port: options.port });

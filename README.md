@@ -17,6 +17,14 @@
 | Interceptors for methods | Complete ✔ |
 | Input validation | In Progress ⛔ |
 | Serialization | In Progress ⛔ |
+| Logger | Waiting |
+| Context Helpers | Waiting |
+| Format endpoint paths | Waiting |
+| Create example repository | Waiting |
+| Create documentation | Waiting |
+| Handle OPTIONS and HEAD | Waiting |
+| DestJS CLI | Waiting |
+| Dynamic Configs Class | Waiting |
 
 ## Example Project
 

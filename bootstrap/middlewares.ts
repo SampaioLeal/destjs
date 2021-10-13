@@ -1,29 +1,29 @@
 // deno-lint-ignore-file no-explicit-any
-import { Application } from "../deps.ts";
+import { Application, toFileUrl } from "../deps.ts";
 
 const TimeHeader = "X-Response-Time";
+const cwd = Deno.cwd();
 
-export async function initializeMiddlewares(app: Application) {
-  const start = Date.now();
-  const cwd = Deno.cwd();
-  const middlewares: any[] = [];
+async function readFolder(name: string, middlewares: any[]) {
+  for await (const item of Deno.readDir(name)) {
+    if (item.isDirectory) {
+      await readFolder(`${name}/${item.name}`, middlewares);
+    } else {
+      if (item.name.includes(".middleware.ts")) {
+        const fileURL = toFileUrl(`${cwd}/${name}/${item.name}`);
+        const controller = (await import(fileURL.href)).default;
 
-  async function readFolder(name: string) {
-    for await (const item of Deno.readDir(name)) {
-      if (item.isDirectory) {
-        await readFolder(`${name}/${item.name}`);
-      } else {
-        if (item.name.includes(".middleware.ts")) {
-          const middleware = (await import(`${cwd}/${name}/${item.name}`))
-            .default;
-
-          middlewares.push(middleware);
-        }
+        middlewares.push(controller);
       }
     }
   }
+}
 
-  await readFolder("middlewares");
+export async function initializeMiddlewares(app: Application) {
+  const start = Date.now();
+  const middlewares: any[] = [];
+
+  await readFolder("middlewares", middlewares);
 
   registerMiddlewares(app, middlewares);
 

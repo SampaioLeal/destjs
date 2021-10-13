@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
-import { Application, Reflect, Router } from "../deps.ts";
+import { Application, Reflect, Router, toFileUrl } from "../deps.ts";
 import { handleRoute } from "../handlers/route.ts";
 
 const cwd = Deno.cwd();
@@ -18,8 +18,9 @@ async function readFolder(name: string, controllers: any[]) {
       await readFolder(`${name}/${item.name}`, controllers);
     } else {
       if (item.name.includes(".controller.ts")) {
-        const controller = (await import(`${cwd}/${name}/${item.name}`))
-          .default;
+        const fileURL = toFileUrl(`${cwd}/${name}/${item.name}`);
+        const controller = (await import(fileURL.href)).default;
+
         controllers.push(controller);
       }
     }

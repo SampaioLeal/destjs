@@ -25,9 +25,9 @@ export class DestPrimitiveValidators {
             set: "ObjectSet"
         }
     }
-    /* 
-        check() returns the main type of target, it will determine the main instance 
-        based on JavaScript primitive types/constructors 
+    /*
+        check() returns the main type of target, it will determine the main instance
+        based on JavaScript primitive types/constructors
     */
     check(target:any) {
         switch(typeof target) {

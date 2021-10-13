@@ -1,13 +1,12 @@
+// deno-lint-ignore-file no-explicit-any
 import { Application } from "../deps.ts";
-import { middlewaresStore } from "../stores/middlewares.ts";
-import { DestMiddleware } from "../types.ts";
 
 const TimeHeader = "X-Response-Time";
-type MiddlewareClass = new () => DestMiddleware;
 
 export async function initializeMiddlewares(app: Application) {
   const start = Date.now();
   const cwd = Deno.cwd();
+  const middlewares: any[] = [];
 
   async function readFolder(name: string) {
     for await (const item of Deno.readDir(name)) {
@@ -15,7 +14,10 @@ export async function initializeMiddlewares(app: Application) {
         await readFolder(`${name}/${item.name}`);
       } else {
         if (item.name.includes(".middleware.ts")) {
-          await import(`${cwd}/${name}/${item.name}`);
+          const middleware = (await import(`${cwd}/${name}/${item.name}`))
+            .default;
+
+          middlewares.push(middleware);
         }
       }
     }
@@ -23,22 +25,21 @@ export async function initializeMiddlewares(app: Application) {
 
   await readFolder("middlewares");
 
-  registerMiddlewares(app);
+  registerMiddlewares(app, middlewares);
 
   console.log("> Middlewares initialized!", `${Date.now() - start}ms`);
 }
 
-function registerMiddlewares(app: Application) {
+function registerMiddlewares(app: Application, middlewares: any[]) {
   app.use(async (context, next) => {
     context.state[TimeHeader] = Date.now();
     await next();
   });
 
-  for (const middleware of middlewaresStore.list.values()) {
-    const midClass = middleware as MiddlewareClass;
+  for (const middleware of middlewares) {
     app.use(async (context, next) => {
       try {
-        await new midClass().use(context);
+        await middleware.prototype.use(context);
         await next();
       } catch (error) {
         const status = error.status || 500;

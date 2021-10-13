@@ -42,7 +42,7 @@ createApp({
 ```
 ```ts
 // deps.ts
-export { createApp } from "https://deno.land/x/destjs@v0.1.2/mod.ts";
+export { createApp } from "https://deno.land/x/destjs@v0.1.3/mod.ts";
 ```
 
 This will initialize things and configure then before creating a new oak server.
@@ -74,8 +74,8 @@ export default class CatsController {
 ```
 ```ts
 // deps.ts
-export { createApp, Controller, Get } from "https://deno.land/x/destjs@v0.1.2/mod.ts";
-export type { HttpContext } from "https://deno.land/x/destjs@v0.1.2/types.ts";
+export { createApp, Controller, Get } from "https://deno.land/x/destjs@v0.1.3/mod.ts";
+export type { HttpContext } from "https://deno.land/x/destjs@v0.1.3/types.ts";
 ```
 
 Now we can start our API and test the endpoint `/cats` by running the following command:
@@ -109,12 +109,12 @@ export class DateMiddleware implements DestMiddleware {
 ```
 ```ts
 // deps.ts
-export { createApp, Controller, Get, Middleware } from "https://deno.land/x/destjs@v0.1.2/mod.ts";
+export { createApp, Controller, Get, Middleware } from "https://deno.land/x/destjs@v0.1.3/mod.ts";
 export type {
   DestMiddleware,
   HttpContext,
   NextFunction,
-} from "https://deno.land/x/destjs@v0.1.2/types.ts";
+} from "https://deno.land/x/destjs@v0.1.3/types.ts";
 ```
 
 Now we can start our API and test the endpoint `/cats`. Looking at the terminal we can see the state with a `nowMiddleware` key with the actual time.

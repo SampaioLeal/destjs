@@ -14,12 +14,15 @@ export class DestPrimitiveValidators {
     static types = {
         unknown: "UnknownPrimitiveType",
         string: "PrimitiveString",
+        regex: "RegexString",
+        date: "DateString",
         boolean: "PrimitiveBoolean",
         number: {
             float: "FloatingNumber",
             int: "IntegerNumber"
         },
         object: {
+            function: "ObjectFunction",
             array: "ObjectArray",
             primitive: "ObjectObject",
             map: "ObjectMap",
@@ -82,6 +85,24 @@ export class DestPrimitiveValidators {
                     case "<setObject>":
                         return {
                             objectType: this.types.object.set,
+                            object: target
+                        } as PrimitiveCheckObject;
+
+                    case "<regexObject>":
+                        return {
+                            objectType: this.types.regex,
+                            object: target
+                        } as PrimitiveCheckObject;
+
+                    case "<dateObject>":
+                        return {
+                            objectType: this.types.date,
+                            object: target
+                        } as PrimitiveCheckObject;
+
+                    case "<functionObject>":
+                        return {
+                            objectType: this.types.object.function,
                             object: target
                         } as PrimitiveCheckObject;
                 }

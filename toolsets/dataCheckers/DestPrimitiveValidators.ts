@@ -11,7 +11,7 @@ interface IntegrityInformation {
 }
 
 export class DestPrimitiveValidators {
-    types = {
+    static types = {
         string: "PrimitiveString",
         boolean: "PrimitiveBoolean",
         number: {
@@ -29,7 +29,7 @@ export class DestPrimitiveValidators {
         check() returns the main type of target, it will determine the main instance
         based on JavaScript primitive types/constructors
     */
-    check(target:any) {
+    static check(target:any) {
         switch(typeof target) {
             case "string":
                 return {
@@ -88,18 +88,18 @@ export class DestPrimitiveValidators {
         return {} as PrimitiveCheckObject;
     }
 
-    checkForFloatingNumber(num:number) {
+    static checkForFloatingNumber(num:number) {
         return Number(num) === num && num % 1 !== 0;
     }
 
-    checkForIntegerNumber(num:number) {
+    static checkForIntegerNumber(num:number) {
         return Number.isInteger(num);
     }
 
     /*
         Returns if the selected object is healthy (holds only one type of information) and also returns its type.
     */
-    getIterableIntegrity(target:any, primitiveType:string) {
+    static getIterableIntegrity(target:any, primitiveType:string) {
         let integrityFailures:number = 0;
         let lastPrimitiveTypeChecked:string = String();
 
@@ -131,7 +131,7 @@ export class DestPrimitiveValidators {
 
         if(integrityFailures > 0) {
             return {
-                targetType: "dynamic",
+                targetType: "any",
                 isUnique: false
             } as IntegrityInformation;
         }
@@ -143,4 +143,4 @@ export class DestPrimitiveValidators {
         }
 
     }
-}
+};

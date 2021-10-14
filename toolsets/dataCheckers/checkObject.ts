@@ -14,9 +14,11 @@ export function checkObject(object:any) {
                 return "<setObject>";
 
             default:
-                break;
+                let instance:string = String();
+                object instanceof RegExp ? instance = "<regexObject>" : {}
+                object instanceof Date ? instance = "<dateObject>" : {}
+                object instanceof Function ? instance = "<functionObject>" : {}
+                return instance;
         }
     }
-
-    return null as unknown;
 }

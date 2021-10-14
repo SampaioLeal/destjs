@@ -12,6 +12,7 @@ interface IntegrityInformation {
 
 export class DestPrimitiveValidators {
     static types = {
+        unknown: "UnknownPrimitiveType",
         string: "PrimitiveString",
         boolean: "PrimitiveBoolean",
         number: {
@@ -83,11 +84,13 @@ export class DestPrimitiveValidators {
                             objectType: this.types.object.set,
                             object: target
                         } as PrimitiveCheckObject;
-
-                    //TODO: Add Default with unknown type (primitive)
                 }
         }
-        return {} as PrimitiveCheckObject;
+        
+        return {
+            object: null,
+            objectType: this.types.unknown
+        } as PrimitiveCheckObject;
     }
 
     static checkForFloatingNumber(num:number) {

@@ -1,8 +1,10 @@
-import { validateString } from "./stringOperations/validateString";
+import { validateString } from "./methods/validateString";
 
 export interface ConstraintGroup {
     //Type Constraints
     primitiveType?: string;
+    //Boolean Constraints
+    isTrue?: boolean
     //String Constraints
     maxLength?: number;
     minLength?: number;
@@ -18,7 +20,9 @@ export interface ConstraintGroup {
 export interface ValidationResult {
     //Validation Data
     //-- Primitive
-    primitiveType?: string;
+    primitiveType?: boolean; //isTheExceptedPrimitiveType
+    //-- Boolean
+    isTrue?: boolean; //isTrue
     //--String
     maxLength?: boolean; //trepassMaxLength
     minLength?: boolean; //trepassMinLength

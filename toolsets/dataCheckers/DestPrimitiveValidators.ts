@@ -83,6 +83,8 @@ export class DestPrimitiveValidators {
                             objectType: this.types.object.set,
                             object: target
                         } as PrimitiveCheckObject;
+
+                    //TODO: Add Default with unknown type (primitive)
                 }
         }
         return {} as PrimitiveCheckObject;

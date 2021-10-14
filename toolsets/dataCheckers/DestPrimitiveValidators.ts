@@ -16,7 +16,7 @@ export class DestPrimitiveValidators {
         boolean: "PrimitiveBoolean",
         number: {
             float: "FloatingNumber",
-            int: "FloatingInteger"
+            int: "IntegerNumber"
         },
         object: {
             array: "ObjectArray",

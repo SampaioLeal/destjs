@@ -1,4 +1,5 @@
 import { validateString } from "./methods/validateString";
+import { validateBoolean } from "./methods/validateBoolean";
 
 export interface ConstraintGroup {
     //Type Constraints
@@ -42,6 +43,9 @@ class DestValidator {
         switch(typeof target) {
             case "string":
                 return validateString(target, template);
+
+            case "boolean":
+                return validateBoolean(target, template);
             
             default:
                 return;

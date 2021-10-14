@@ -1,8 +1,8 @@
 import { validateString } from "./stringOperations/validateString";
 
 export interface ConstraintGroup {
-    //Object Constraints
-    objectFieldName?: string;
+    //Type Constraints
+    primitiveType?: string;
     //String Constraints
     maxLength?: number;
     minLength?: number;
@@ -17,8 +17,8 @@ export interface ConstraintGroup {
 
 export interface ValidationResult {
     //Validation Data
-    //-- Object
-    objectFieldName?: boolean;
+    //-- Primitive
+    primitiveType?: string;
     //--String
     maxLength?: boolean; //trepassMaxLength
     minLength?: boolean; //trepassMinLength
@@ -47,6 +47,7 @@ class DestValidator {
 
 var template: ValidationTemplate = [
     {
+        primitiveType: "string",
         maxLength: 2
     }
 ];

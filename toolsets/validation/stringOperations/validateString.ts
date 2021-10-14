@@ -3,11 +3,14 @@ import { ConstraintGroup, ValidationTemplate, ValidationResult } from "../DestVa
 export function validateString(target: string, template: ValidationTemplate) {
     let constraintGroup: ConstraintGroup = template[0];
     let allowedConstraints: ValidationResult = {
+        "primitiveType": "unknown",
         "maxLength": false, 
         "minLength": false,
         "canHaveSideWhiteSpaces": false,
         "canHaveWhiteSpaces": false
     };
+
+    allowedConstraints.primitiveType = typeof target;
 
     Object.keys(constraintGroup).forEach((constraint: string) => {
         if(Object.keys(allowedConstraints).includes(constraint)) {

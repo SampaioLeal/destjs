@@ -1,4 +1,6 @@
-interface ConstraintGroup {
+import { validateString } from "./stringOperations/validateString";
+
+export interface ConstraintGroup {
     //Object Constraints
     objectFieldName?: string;
     //String Constraints
@@ -13,77 +15,33 @@ interface ConstraintGroup {
     isNegative?: boolean;
 }
 
-interface ValidationResult {
+export interface ValidationResult {
+    //Validation Data
+    //-- Object
     objectFieldName?: boolean;
-    maxLength?: boolean;
-    minLength?: boolean;
-    canHaveSideWhiteSpaces?: boolean;
-    canHaveWhiteSpaces?: boolean;
-    maxSize?: boolean;
-    minSize?: boolean;
+    //--String
+    maxLength?: boolean; //trepassMaxLength
+    minLength?: boolean; //trepassMinLength
+    canHaveSideWhiteSpaces?: boolean; //haveSideWhiteSpaces
+    canHaveWhiteSpaces?: boolean; //haveWhiteSpaces
+    //--Number
+    trepassMaxSize?: boolean;
+    trepassMinSize?: boolean;
     isFloating?: boolean;
     isNegative?: boolean;
 }
 
-type ValidationTemplate = Array<ConstraintGroup>;
+export type ValidationTemplate = Array<ConstraintGroup>;
 
 class DestValidator {
     static validate(target: any, template: ValidationTemplate) {
         switch(typeof target) {
             case "string":
-                return this.#validateString(target, template);
+                return validateString(target, template);
             
             default:
                 return;
         }
-    }
-
-    static #validateString(target: string, template: ValidationTemplate) {
-        let constraintGroup: ConstraintGroup = template[0] ;
-        let allowedConstraints: ValidationResult = {
-            "maxLength": false, 
-            "minLength": false,
-            "canHaveSideWhiteSpaces": true,
-            "canHaveWhiteSpaces": true
-        };
-
-        Object.keys(constraintGroup).forEach((constraint: string) => {
-            if(Object.keys(allowedConstraints).includes(constraint)) {
-
-                switch(constraint) {
-                    case "maxLength":
-                        if(target.length <= constraintGroup[constraint]!) {
-                            allowedConstraints["maxLength"] = true;
-                        }
-                        break;
-                    
-                    case "minLength":
-                        if(target.length >= constraintGroup[constraint]!) {
-                            allowedConstraints["minLength"] = true;
-                        }
-                        break;
-
-                    case "canHaveSideWhiteSpaces":
-                        if(!constraintGroup[constraint]) {
-                            if(target[0] === " " && target[target.length - 1] === " ") {
-                                allowedConstraints["canHaveSideWhiteSpaces"] = false;
-                            }
-                        }
-                        break;
-
-                    case "canHaveWhiteSpaces":
-                        allowedConstraints["canHaveWhiteSpaces"] = true;
-                        if(!constraintGroup[constraint]) {
-                            if(target.split(" ").length > 1) {
-                                allowedConstraints["canHaveWhiteSpaces"] = false;
-                            }
-                        }
-                        break;
-                }
-            }
-        });
-
-        return allowedConstraints;
     }
 }
 

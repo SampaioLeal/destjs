@@ -1,6 +1,6 @@
 export var ExceptionDictionary = (arg1, arg2) => {
     return {
-        GenericSerializationFailure: `The object is not valid to the given template`,
+        GenericSanitizationFailure: `The object is not valid to the given template or the type is unknown`,
         TypeNotMatch: `The object '${arg1}' dont match with the required ${arg2} type`,
 
         //String Sanitization/Validation Exceptions

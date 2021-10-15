@@ -175,6 +175,9 @@ export function DestSanitize(plain: any, template: any | ConstraintGroup) {
                 return plain;
             }
             break;
+
+            default:
+                throw new Error(ExceptionDictionary().GenericSanitizationFailure);
     }
 
     throw new TypeError(exceptionGroup.toString());

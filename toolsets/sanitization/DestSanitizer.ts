@@ -38,12 +38,6 @@ class ValidationResult {
 
 type ValidationExceptionGroup = string[];
 
-var Teste:ConstraintGroup = {
-    maxLength: 1
-};
-
-console.log(DestSanitize("sadsadw", Teste));
-
 function DestSanitize(plain: any, template: any | ConstraintGroup) {
     let exceptionGroup: ValidationExceptionGroup = [];
 
@@ -182,6 +176,6 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
             }
             break;
     }
-    
+
     throw new TypeError(exceptionGroup.toString());
 }

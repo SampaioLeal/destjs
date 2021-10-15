@@ -3,8 +3,6 @@ import { ExceptionDictionary } from "../dictionaries/ExceptionDictionary";
 export class ConstraintGroup {
     //Type Constraints
     primitiveType?: string = "object";
-    //Boolean Constraints
-    isTrue?: boolean = false;
     //String Constraints
     maxLength?: number = 9999;
     minLength?: number = -9999;

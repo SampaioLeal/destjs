@@ -73,8 +73,9 @@ Exception table:
 | 🔵 Number | |
 | MaxSizeError | The number x exceeds the size of x |
 | MinSizeError | The minimum length required for the string x is x characters |
-| MaxSizeError | The number x cannot be floating |
-| MaxSizeError | The number x must be floating |
-| MaxSizeError | The number x cannot be an integer |
-| MaxSizeError | The number x must be an integer |
-| MaxSizeError | The number x cannot be negative |
+| IsFloatingError | The number x cannot be floating |
+| IsNotFloatingError | The number x must be floating |
+| IsIntegerError | The number x cannot be an integer |
+| IsNotIntegerError | The number x must be an integer |
+| IsNegativeError | The number x cannot be negative |
+| IsNotNegativeError | The number x must be negative |

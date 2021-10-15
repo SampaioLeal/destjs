@@ -65,4 +65,16 @@ Exception table:
 | 🔵 Generics | |
 | GenericSanitizationFailure | The object is not valid to the given template or the type is unknown |
 | TypeNotMatch | The object x dont match with the required x type |
-| 🔵 Generics | |
+| 🔵 String | |
+| MaxLengthError | The string x exceeds the length of x characters |
+| MinLengthError | The minimum length required for the string x is x characters |
+| HaveSpacesError | White spaces are not allowed in the string x |
+| HaveSideSpacesError | Side white spaces are not allowed in the string x |
+| 🔵 Number | |
+| MaxSizeError | The number x exceeds the size of x |
+| MinSizeError | The minimum length required for the string x is x characters |
+| MaxSizeError | The number x cannot be floating |
+| MaxSizeError | The number x must be floating |
+| MaxSizeError | The number x cannot be an integer |
+| MaxSizeError | The number x must be an integer |
+| MaxSizeError | The number x cannot be negative |

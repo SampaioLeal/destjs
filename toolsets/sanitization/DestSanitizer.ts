@@ -38,7 +38,7 @@ class ValidationResult {
 
 export type ValidationExceptionGroup = string[];
 
-export function DestSanitize(plain: any, template: any | ConstraintGroup) {
+export function DestSanitize(plain: any, template: ConstraintGroup) {
     let exceptionGroup: ValidationExceptionGroup = [];
 
     switch(typeof plain) {

@@ -1,8 +1,13 @@
 import { DestSanitize, ConstraintGroup } from "../sanitization/DestSanitizer";
 
-var Teste: ConstraintGroup = {
-    maxSize: 112
+var NumberTemplate: ConstraintGroup = {
+    maxSize: 10,
+    minSize: 5,
+    isFloating: false,
+    isInteger: true,
+    isNegative: false,
+    primitiveType: "number"
 };
 
-/* Excepted "TypeError": The number '113' exceeds the size of 112 */
-console.log(DestSanitize(113, Teste));
+/* Excepted "TypeError" */
+console.log(DestSanitize(-113, NumberTemplate));

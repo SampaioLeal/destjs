@@ -1,4 +1,4 @@
-export var ExceptionDictionary = (arg1, arg2) => {
+export var ExceptionDictionary = (arg1: any = "", arg2: any = "") => {
     return {
         GenericSanitizationFailure: `The object is not valid to the given template or the type is unknown`,
         TypeNotMatch: `The object '${arg1}' dont match with the required ${arg2} type`,

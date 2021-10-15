@@ -1,4 +1,4 @@
-import { ExceptionDictionary } from "../../dictionaries/ExceptionDictionary";
+import { ExceptionDictionary } from "../dictionaries/ExceptionDictionary";
 
 class ConstraintGroup {
     //Type Constraints
@@ -83,7 +83,7 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
                     case "canHaveSideWhiteSpaces":
                         if(!template[constraint]! && /(^\s)|(\s$)/.test(plain)) {
                             strValidationResult["canHaveSideWhiteSpaces"] = true;
-                            exceptionGroup.push(ExceptionDictionary(plain, template[constraint]!).HaveSideSpacesError); 
+                            exceptionGroup.push(ExceptionDictionary(plain).HaveSideSpacesError); 
                         }
                         break;
 
@@ -91,7 +91,7 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
                         if(!template[constraint]!) {
                             if(plain.indexOf(" ") != -1) {
                                 strValidationResult["canHaveWhiteSpaces"] = true;
-                                exceptionGroup.push(ExceptionDictionary(plain, template[constraint]!).HaveSpacesError); 
+                                exceptionGroup.push(ExceptionDictionary(plain).HaveSpacesError); 
                             }
                         }
                         break;
@@ -126,6 +126,7 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
                     case "minSize":
                         if(plain < template[constraint]!) {
                             numValidationResult["minSize"] = true;
+                            exceptionGroup.push(ExceptionDictionary(plain, template[constraint]!).MinSizeError);
                         }
                         break;
 
@@ -133,11 +134,13 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
                         if(!template[constraint]!) {
                             if(Number(plain) === plain && plain % 1 !== 0) {
                                 numValidationResult["isFloating"] = true;
+                                exceptionGroup.push(ExceptionDictionary(plain).IsFloatingError);
                             }
                         }
                         else if(template[constraint]!) {
                             if(!(Number(plain) === plain && plain % 1 !== 0)) {
                                 numValidationResult["isFloating"] = true;
+                                exceptionGroup.push(ExceptionDictionary(plain).IsNotFloatingError);
                             }
                         }
 
@@ -147,11 +150,13 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
                         if(!template[constraint]!) {
                             if(Number(plain) === plain && plain % 1 === 0) {
                                 numValidationResult["isInteger"] = true;
+                                exceptionGroup.push(ExceptionDictionary(plain).IsIntegerError);
                             }
                         }
                         else if(template[constraint]!) {
                             if(!(Number(plain) === plain && plain % 1 === 0)) {
                                 numValidationResult["isInteger"] = true;
+                                exceptionGroup.push(ExceptionDictionary(plain).IsNotIntegerError);
                             }
                         }
                         break;
@@ -160,11 +165,13 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
                         if(!template[constraint]!) {
                             if(Number(plain) < 0) {
                                 numValidationResult["isNegative"] = true;
+                                exceptionGroup.push(ExceptionDictionary(plain).IsNegativeError);
                             }
                         }
                         else if (template[constraint]!) {
                             if(Number(plain) > 0) {
                                 numValidationResult["isNegative"] = true;
+                                exceptionGroup.push(ExceptionDictionary(plain).IsNotNegativeError);
                             }
                         }
                 }

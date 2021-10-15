@@ -1,6 +1,6 @@
 import { ExceptionDictionary } from "../dictionaries/ExceptionDictionary";
 
-class ConstraintGroup {
+export class ConstraintGroup {
     //Type Constraints
     primitiveType?: string = "object";
     //Boolean Constraints
@@ -18,7 +18,7 @@ class ConstraintGroup {
     isInteger?: boolean = false;
 }
 
-class ValidationResult {
+export class ValidationResult {
     //Type Constraints
     primitiveType?: boolean = false;
     //Boolean Constraints
@@ -36,9 +36,9 @@ class ValidationResult {
     isInteger?: boolean = false;
 }
 
-type ValidationExceptionGroup = string[];
+export type ValidationExceptionGroup = string[];
 
-function DestSanitize(plain: any, template: any | ConstraintGroup) {
+export function DestSanitize(plain: any, template: any | ConstraintGroup) {
     let exceptionGroup: ValidationExceptionGroup = [];
 
     switch(typeof plain) {

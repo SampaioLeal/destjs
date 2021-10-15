@@ -11,3 +11,14 @@ var NumberTemplate: ConstraintGroup = {
 
 /* Excepted "TypeError" */
 console.log(DestSanitize(-113, NumberTemplate));
+
+var StringTemplate: ConstraintGroup = {
+    maxLength: 10,
+    minLength: 5,
+    canHaveSideWhiteSpaces: false,
+    canHaveWhiteSpaces: false,
+    primitiveType: "string"
+}
+
+/* Excepted "aaaaaa" */
+console.log(DestSanitize("aaaaaa", StringTemplate));

@@ -2,6 +2,7 @@ import { validateString } from "./methods/validateString";
 import { validateBoolean } from "./methods/validateBoolean";
 
 export interface ConstraintGroup {
+    fieldName: string;
     //Type Constraints
     primitiveType?: string;
     //Boolean Constraints

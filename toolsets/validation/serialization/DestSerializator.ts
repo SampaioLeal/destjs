@@ -1,57 +1,45 @@
 // deno-lint-ignore-file no-explicit-any
 import { DestValidator, ValidationTemplate } from "../DestValidator";
 import { ExceptionDictionary } from "../../dictionaries/ExceptionDictionary";
+import { defaultValueOfPrimitive } from "../methods/defaultOfPrimitive";
 
-export function DestSerialize(plain: Record<string, unknown>, target: new () => any, template: ValidationTemplate) {
+export function DestSerialize(plain: Record<string, unknown>, className: string, template: ValidationTemplate) {
     //TODO: Add custom return messages to each validation error/failure
     if(!DestValidator.validate(plain, template)) return ExceptionDictionary().GenericSerializationFailure;
 
-    const instance = new target();
+    (this as any)[className] = () => {};
 
-    const properties = Object.getOwnPropertyNames(instance);
-    const methods = Reflect.ownKeys(target.prototype);
-  
-    methods.shift();
-  
-    properties.forEach((prop) => {
-        instance[prop] = plain[prop];
+    Object.entries(plain).forEach((record) => {
+        (this as any)[className].prototype[record[0]] = defaultValueOfPrimitive(typeof record[1]);
     });
 
-    if (Array.isArray(methods)) {
-        methods.forEach((method) => {
-        instance[method] = instance[method]();
-        });
-    }
-  
-    return instance;
-}
+    let instance = eval("new " + className + "()");
 
-export default class Person {
-    firstName!: string;
-    lastName!: string;
-    age!: number;
-  
-    // Mutations
-    fullName() {
-      return this.firstName + " " + this.lastName;
-    }
+    Object.entries(plain).forEach((record) => {
+        instance[record[0]] = record[1];
+    });
+
+    return instance;
 }
 
 var PersonTemplate: ValidationTemplate = [
     {
+        fieldName: "Nome",
         primitiveType: "string",
         minLength: 2,
         maxLength: 20
     },
     {
+        fieldName: "Sobrenome",
         primitiveType: "string",
         minLength: 2,
         maxLength: 20
     },
     {
+        fieldName: "Idade",
         primitiveType: "number",
         minSize: 18
     }
 ];
   
-DestSerialize({ firstName: "Sampaio", lastName: "Leal", age: 19 }, Person, PersonTemplate);
+DestSerialize({ firstName: "Sampaio", lastName: "Leal", age: 19 }, "Person", PersonTemplate);

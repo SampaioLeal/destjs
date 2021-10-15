@@ -18,7 +18,7 @@ export class ConstraintGroup {
     isInteger?: boolean = false;
 }
 
-export class ValidationResult {
+class ValidationResult {
     //Type Constraints
     primitiveType?: boolean = false;
     //Boolean Constraints

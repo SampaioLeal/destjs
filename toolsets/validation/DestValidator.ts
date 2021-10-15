@@ -16,6 +16,7 @@ export interface ConstraintGroup {
     minSize?: number;
     isFloating?: boolean;
     isNegative?: boolean;
+    isInteger?: boolean;
 }
 
 export interface ValidationResult {
@@ -30,10 +31,11 @@ export interface ValidationResult {
     canHaveSideWhiteSpaces?: boolean; //haveSideWhiteSpaces
     canHaveWhiteSpaces?: boolean; //haveWhiteSpaces
     //--Number
-    trepassMaxSize?: boolean;
-    trepassMinSize?: boolean;
+    maxSize?: boolean;
+    minSize?: boolean;
     isFloating?: boolean;
     isNegative?: boolean;
+    isInteger?: boolean;
 }
 
 export type ValidationTemplate = Array<ConstraintGroup>;

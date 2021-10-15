@@ -76,12 +76,14 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
                     case "primitiveType":
                         if(typeof plain !== template[constraint]!) {
                             strValidationResult["primitiveType"] = true; 
+                            exceptionGroup.push(ExceptionDictionary(typeof plain, template[constraint]!).TypeNotMatch); 
                         }
                         break;
 
                     case "canHaveSideWhiteSpaces":
                         if(!template[constraint]! && /(^\s)|(\s$)/.test(plain)) {
                             strValidationResult["canHaveSideWhiteSpaces"] = true;
+                            exceptionGroup.push(ExceptionDictionary(plain, template[constraint]!).HaveSideSpacesError); 
                         }
                         break;
 
@@ -89,6 +91,7 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
                         if(!template[constraint]!) {
                             if(plain.indexOf(" ") != -1) {
                                 strValidationResult["canHaveWhiteSpaces"] = true;
+                                exceptionGroup.push(ExceptionDictionary(plain, template[constraint]!).HaveSpacesError); 
                             }
                         }
                         break;
@@ -116,6 +119,7 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
                     case "maxSize":
                         if(plain > template[constraint]!) {
                             numValidationResult["maxSize"] = true;
+                            exceptionGroup.push(ExceptionDictionary(plain, template[constraint]!).MaxSizeError);
                         }
                         break;
                     

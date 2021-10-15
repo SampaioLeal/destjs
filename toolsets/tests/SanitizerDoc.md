@@ -62,3 +62,7 @@ Exception table:
 
 | Name | Base |
 | --- | ----------- |
+| 🔵 Generics | |
+| GenericSanitizationFailure | The object is not valid to the given template or the type is unknown |
+| TypeNotMatch | The object x dont match with the required x type |
+| 🔵 Generics | |

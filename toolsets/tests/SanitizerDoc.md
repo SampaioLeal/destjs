@@ -48,9 +48,17 @@ canHaveWhiteSpaces; //Determines whether or not the string can have empty spaces
 
 **Number Constraints**
 ```typescript
-maxSize;
-minSize;
-isFloating;
-isNegative;
-isInteger;
+maxSize; //Defines a maximum size for the expected number.
+minSize; //Defines a minimum size for the expected number.
+isFloating; //Determines whether the expected number should be floating.
+isNegative; //Determines whether the expected number should be negative.
+isInteger; //Determines whether the expected number should be integer.
 ```
+
+## Errors
+There are two types of error that can be returned from a sanitization process, the first (TypeError) is returned if a value is in disagreement with its respective template, the second (Error) is returned if there is an unknown problem or the type of the variable is not yet supported by the function.
+
+Exception table:
+
+| Name | Base |
+| --- | ----------- |

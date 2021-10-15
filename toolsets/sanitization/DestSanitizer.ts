@@ -182,5 +182,6 @@ function DestSanitize(plain: any, template: any | ConstraintGroup) {
             }
             break;
     }
-    throw new TypeError(ExceptionDictionary().GenericSerializationFailure);
+    
+    throw new TypeError(exceptionGroup.toString());
 }

@@ -40,7 +40,7 @@ export interface ValidationResult {
 
 export type ValidationTemplate = Array<ConstraintGroup>;
 
-class DestValidator {
+export class DestValidator {
     static validate(target: any, template: ValidationTemplate) {
         switch(typeof target) {
             case "string":
@@ -54,12 +54,3 @@ class DestValidator {
         }
     }
 }
-
-var template: ValidationTemplate = [
-    {
-        primitiveType: "string",
-        maxLength: 2
-    }
-];
-
-console.log(DestValidator.validate("ba", template));

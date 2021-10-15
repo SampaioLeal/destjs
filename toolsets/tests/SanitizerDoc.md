@@ -1,7 +1,7 @@
 
 # DestSanitizer
 
-DestSanitizer is a method created to sanitize data based on a template object called **ConstraintGroup**.
+DestSanitizer is a method created to sanitize data based on a template object called **ConstraintGroup**. Dest Sanitizer Beta.
 
 ## Usage
 

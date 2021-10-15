@@ -15,7 +15,7 @@
 |  Other methods decorators (PUT, DELETE, POST, PATCH) | Complete ✔ |
 | Global Middlewares folder and management | Complete ✔ |
 | Interceptors for methods | Complete ✔ |
-| Data optional sanitization | In Progress ⛔ |
+| Data optional sanitization | Complete ✔ |
 | Input validation | In Progress ⛔ |
 | Serialization | In Progress ⛔ |
 | Logger | Waiting |

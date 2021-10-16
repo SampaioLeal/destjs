@@ -1,4 +1,4 @@
-import { HttpContext, Interceptor } from "../types.ts";
+import { Callback, HttpContext, Interceptor } from "../types.ts";
 import { Reflect } from "../deps.ts";
 
 export function UseInterceptor(interceptor: Interceptor) {
@@ -7,7 +7,7 @@ export function UseInterceptor(interceptor: Interceptor) {
     _propertyKey: string,
     descriptor: PropertyDescriptor
   ) => {
-    const originalMethod = descriptor.value;
+    const originalMethod = descriptor.value as Callback;
     const endpoint = Reflect.getMetadata("endpoint", originalMethod);
     const httpMethod = Reflect.getMetadata("method", originalMethod);
 

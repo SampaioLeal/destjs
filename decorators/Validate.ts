@@ -1,4 +1,5 @@
 import {
+  Callback,
   FormattedError,
   HttpContext,
   IValidationError,
@@ -32,7 +33,7 @@ export function Validate<T extends Record<string, unknown>>(
     _propertyKey: string,
     descriptor: PropertyDescriptor
   ) => {
-    const originalMethod = descriptor.value;
+    const originalMethod = descriptor.value as Callback;
     const endpoint = Reflect.getMetadata("endpoint", originalMethod);
     const httpMethod = Reflect.getMetadata("method", originalMethod);
 

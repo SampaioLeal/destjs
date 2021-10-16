@@ -1,4 +1,4 @@
-import { Context, Body } from "./deps.ts";
+import { Context, Body, BodyType, ValidationError } from "./deps.ts";
 
 type BodyFunction = () => Body | Promise<Body>;
 
@@ -29,3 +29,15 @@ export interface DestMiddleware {
 export type Interceptor = (context: HttpContext) => Promise<void> | void;
 
 export type ControllerClass = new () => unknown;
+
+export interface ValidateOptions {
+  type?: BodyType;
+  message?: string;
+  status?: number;
+}
+
+export type IValidationError = ValidationError;
+export interface FormattedError {
+  constraints?: string[];
+  children: FormattedError[];
+}

@@ -62,6 +62,7 @@ export async function initializeControllers(app: Application) {
 
   const controllers: any[] = [];
 
+  // TODO: scan all project for controllers
   await readFolder("controllers", controllers);
 
   controllers.forEach((controller) => {

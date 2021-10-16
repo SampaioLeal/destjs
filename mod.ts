@@ -3,6 +3,7 @@ import { initializeMiddlewares } from "./bootstrap/middlewares.ts";
 import { Application } from "./deps.ts";
 
 export { Controller } from "./decorators/Controller.ts";
+export { Validate } from "./decorators/Validate.ts";
 export { Get, Post, Put, Patch, Delete } from "./decorators/Methods.ts";
 export { UseInterceptor } from "./decorators/UseInterceptor.ts";
 

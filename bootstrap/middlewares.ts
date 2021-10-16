@@ -23,6 +23,7 @@ export async function initializeMiddlewares(app: Application) {
   const start = Date.now();
   const middlewares: any[] = [];
 
+  // TODO: scan all project for middlewares
   await readFolder("middlewares", middlewares);
 
   registerMiddlewares(app, middlewares);

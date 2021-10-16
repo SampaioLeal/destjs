@@ -10,6 +10,7 @@ export function handleRoute(callback: Callback) {
       const message = error.message || "Internal server error!";
 
       context.response.body = {
+        ...error,
         status,
         message,
       };

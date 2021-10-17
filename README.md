@@ -15,11 +15,10 @@
 |  Other methods decorators (PUT, DELETE, POST, PATCH) | Complete ✔ |
 | Global Middlewares folder and management | Complete ✔ |
 | Interceptors for methods | Complete ✔ |
-| Input validation | In Progress ⛔ |
-| Serialization | In Progress ⛔ |
+| Input validation | Complete ✔ |
+| Context Helpers | In Progress ⛔ |
+| Format endpoint paths | In Progress ⛔ |
 | Logger | Waiting |
-| Context Helpers | Waiting |
-| Format endpoint paths | Waiting |
 | Create example repository | Waiting |
 | Create documentation | Waiting |
 | Handle OPTIONS and HEAD | Waiting |

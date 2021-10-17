@@ -1,6 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 import { Application, Reflect, Router, toFileUrl } from "../deps.ts";
 import { handleRoute } from "../handlers/route.ts";
+import { Callback } from "../types.ts";
 
 const cwd = Deno.cwd();
 const router = new Router();
@@ -27,7 +28,11 @@ async function readFolder(name: string, controllers: any[]) {
   }
 }
 
-function registerController(Controller: any) {
+function registerController<T extends Record<string, unknown>>(
+  Controller: new () => T
+) {
+  const instance = new Controller();
+
   const basePath = Reflect.getMetadata("endpoint", Controller);
   const methods = Object.getOwnPropertyNames(Controller.prototype);
 
@@ -36,13 +41,13 @@ function registerController(Controller: any) {
 
     const endpoint = Reflect.getMetadata(
       "endpoint",
-      Controller.prototype[methodName]
+      instance[methodName]
     ) as string;
     const httpMethod = Reflect.getMetadata(
       "method",
-      Controller.prototype[methodName]
+      instance[methodName]
     ) as string;
-    const middleware = Controller.prototype[methodName];
+    const middleware = instance[methodName] as Callback;
 
     let path = basePath + endpoint;
     if (path[path.length - 1] === "/") {
@@ -53,7 +58,7 @@ function registerController(Controller: any) {
     if (!routerFn)
       throw new Error(`The method ${httpMethod} can not be handled by Dest.`);
 
-    routerFn.call(router, path, handleRoute(middleware));
+    routerFn.call(router, path, handleRoute(middleware.bind(instance)));
   });
 }
 

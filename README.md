@@ -7,17 +7,6 @@
     <a href="https://deno.land/x/destjs"><img alt="deno.land/x" src="http://img.shields.io/badge/available%20on-deno.land/x-lightgrey.svg?logo=deno&labelColor=black" /></a>
 </p>
 
-## Goals
-
-| Goal | State |
-| --- | ----------- |
-| Format endpoint paths | In Progress ⛔ |
-| Logger | Waiting |
-| Create example repository | Waiting |
-| Create documentation | Waiting |
-| Handle OPTIONS and HEAD | Waiting |
-| DestJS CLI | Waiting |
-
 ## Example Project
 
 To get started with DestJS you have to instatiate the app with the `createApp` function and build a minimal structure to the framework works properly.

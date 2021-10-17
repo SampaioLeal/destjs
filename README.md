@@ -11,19 +11,12 @@
 
 | Goal | State |
 | --- | ----------- |
-| Controllers store and routes creation with Decorators | Complete ✔ |
-|  Other methods decorators (PUT, DELETE, POST, PATCH) | Complete ✔ |
-| Global Middlewares folder and management | Complete ✔ |
-| Interceptors for methods | Complete ✔ |
-| Input validation | Complete ✔ |
-| Context Helpers | In Progress ⛔ |
 | Format endpoint paths | In Progress ⛔ |
 | Logger | Waiting |
 | Create example repository | Waiting |
 | Create documentation | Waiting |
 | Handle OPTIONS and HEAD | Waiting |
 | DestJS CLI | Waiting |
-| Dynamic Configs Class | Waiting |
 
 ## Example Project
 

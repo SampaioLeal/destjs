@@ -2,15 +2,16 @@ import { Context, Body, BodyType, ValidationError } from "./deps.ts";
 
 type BodyFunction = () => Body | Promise<Body>;
 
+export type HttpContext = Context & {
+  params: Record<string, string | undefined>;
+};
+
 export type Callback = (
-  context: Context
+  context: HttpContext
 ) => Promise<Body | BodyFunction> | Body | BodyFunction;
 
-export type HandledRoute = (context: Context) => Promise<void> | void;
+export type HandledRoute = (context: HttpContext) => Promise<void> | void;
 
-export type HttpContext = Context & {
-  params: Record<string, string>;
-};
 export interface ControllerConstructor extends Function {
   new (...args: unknown[]): unknown;
 }

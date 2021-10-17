@@ -8,7 +8,9 @@ export type Callback = (
 
 export type HandledRoute = (context: Context) => Promise<void> | void;
 
-export type HttpContext = Context;
+export type HttpContext = Context & {
+  params: Record<string, string>;
+};
 export interface ControllerConstructor extends Function {
   new (...args: unknown[]): unknown;
 }
